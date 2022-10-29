@@ -1,13 +1,11 @@
 <template>
-  <div class="container"></div>
+  <!-- 路由挂载点 -->
+  <router-view></router-view>
 </template>
 
 <script>
 export default {
-  name: 'App',
-  setup() {
-
-  }
+  name: 'App'
 }
 </script>
 

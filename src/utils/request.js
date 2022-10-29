@@ -57,15 +57,17 @@ instance.interceptors.response.use(
 )
 
 // 请求工具函数
-export default (url, method, submitData) => {
-  // 负责发请求 请求地址 请求方式以及提交的数据
-  return instance({
-    url,
-    method,
-    // 1.如果是get请求，需要使用params来传递submitData
-    // 2.如果不是get请求，需要使用data来传递submitData
-    // []设置一个动态的key，[]可以写js表达式，js表达式的执行结果当作KEY
-    // method参数：get,Get,GET 转化成大写
-    [method.toUpperCase() === 'GET' ? 'params' : 'data']: submitData
-  })
-}
+// export default (url, method, submitData) => {
+//   // 负责发请求 请求地址 请求方式以及提交的数据
+//   return instance({
+//     url,
+//     method,
+//     // 1.如果是get请求，需要使用params来传递submitData
+//     // 2.如果不是get请求，需要使用data来传递submitData
+//     // []设置一个动态的key，[]可以写js表达式，js表达式的执行结果当作KEY
+//     // method参数：get,Get,GET 转化成大写
+//     [method.toUpperCase() === 'GET' ? 'params' : 'data']: submitData
+//   })
+// }
+// 上边方法会报错，原因不明
+export default instance
