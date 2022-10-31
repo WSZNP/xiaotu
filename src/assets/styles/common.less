@@ -100,3 +100,18 @@ ul {
   line-height: 0;
   clear: both;
 }
+
+// 骨架屏离开时淡出动画
+.fade {
+  &-leave {
+    &-active {
+      position: absolute; //让其脱离文档流,但绝对定位元素在没有添加位置偏移的时候会在原地保持不动
+      transition: all 0.5s 0.2s;
+      width: 100%;
+      z-index: 1;
+    }
+    &-to {
+      opacity: 0;
+    }
+  }
+}
