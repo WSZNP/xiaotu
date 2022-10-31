@@ -9,3 +9,28 @@ export const findBrand = params => {
     params
   })
 }
+
+// 获取轮播图
+export const findBanner = () => {
+  return request({
+    method: 'GET',
+    url: '/home/banner'
+  })
+}
+
+// 获取新鲜好物
+export const findNew = params => {
+  return request({
+    method: 'GET',
+    url: '/home/new',
+    params
+  })
+}
+
+// 获取新鲜好物
+export const findHot = () => {
+  return request({
+    method: 'GET',
+    url: '/home/hot'
+  })
+}

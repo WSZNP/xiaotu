@@ -48,6 +48,7 @@ export default {
 
 <style scoped lang='less'>
 .app-header-nav {
+  z-index: 100;
   position: relative;
   width: 820px;
   display: flex;

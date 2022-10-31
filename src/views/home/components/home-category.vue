@@ -15,6 +15,16 @@
             :to="`/category/sub/${sub.id}`"
           >{{sub.name}}</RouterLink>
         </template>
+        <!-- 骨架 -->
+        <template v-else>
+          <xtx-skeleton
+            width="60px"
+            height="18px"
+            style="margin-right:5px"
+            bg="rgba(255,255,255,.2)"
+          />
+          <xtx-skeleton width="50px" height="18px" bg="rgba(255,255,255,.2)" />
+        </template>
       </li>
     </ul>
     <!-- 弹层 -->
@@ -110,7 +120,7 @@ export default {
   height: 500px;
   background: rgba(0, 0, 0, 0.8);
   position: relative;
-  z-index: 0.9;
+  z-index: 99;
   .menu {
     li {
       padding-left: 40px;
@@ -218,6 +228,18 @@ export default {
   &:hover {
     .layer {
       display: block;
+    }
+  }
+  // 骨架闪烁效果
+  .xtx-skeleton {
+    animation: fade 1s linear infinite alternate;
+  }
+  @keyframes fade {
+    from {
+      opacity: 0.2;
+    }
+    to {
+      opacity: 1;
     }
   }
 }
