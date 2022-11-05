@@ -32,7 +32,11 @@ const routes = [
 const router = createRouter({
   // 用hash的路由模式
   history: createWebHashHistory(),
-  routes
+  routes,
+  // 我冒充切换路由的时候，滚动到页面顶端不
+  scrollBehavior() {
+    return { top: 0, left: 0, behavior: 'smooth' }
+  }
 })
 
 export default router

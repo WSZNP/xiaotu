@@ -30,6 +30,8 @@ export default {
       // 获取分类数据
       const data = await findAllCategory()
       // 给每个分类加上控制二级分类显示隐藏的数据
+      // console.log(data)
+
       data.result.forEach(top => {
         top.open = false
       })
