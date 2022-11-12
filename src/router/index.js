@@ -4,6 +4,7 @@ const Layout = () => import('@/views/Layout')
 const Home = () => import('@/views/home')
 const TopCategory = () => import('@/views/category/index')
 const SubCategory = () => import('@/views/category/sub')
+const Goods = () => import('@/views/goods')
 // 路由规则
 const routes = [
   // 一级路由布局容器
@@ -22,6 +23,10 @@ const routes = [
       {
         path: 'category/sub/:id',
         component: SubCategory
+      },
+      {
+        path: 'product/:id',
+        component: Goods
       }
     ]
   }
@@ -33,7 +38,7 @@ const router = createRouter({
   // 用hash的路由模式
   history: createWebHashHistory(),
   routes,
-  // 我冒充切换路由的时候，滚动到页面顶端不
+  // 切换路由的时候，滚动到页面顶端
   scrollBehavior() {
     return { top: 0, left: 0, behavior: 'smooth' }
   }
