@@ -5,6 +5,8 @@ const Home = () => import('@/views/home')
 const TopCategory = () => import('@/views/category/index')
 const SubCategory = () => import('@/views/category/sub')
 const Goods = () => import('@/views/goods')
+
+const Login = () => import('@/views/login')
 // 路由规则
 const routes = [
   // 一级路由布局容器
@@ -29,6 +31,10 @@ const routes = [
         component: Goods
       }
     ]
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ]
 

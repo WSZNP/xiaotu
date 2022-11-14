@@ -75,14 +75,12 @@ export default {
     // 监听props的变化，去更新组件内部数据
     watch(props, () => {
       myTotal.value = props.total
-      myPageSize.value = props.pageSize
       myCurrentPage.value = props.currentPage
+      myPageSize.value = props.pageSize
     }, { immediate: true })
-
     // 切换分页的函数
     const changePager = (page) => {
       myCurrentPage.value = page
-      // 通知父组件
       emit('current-change', page)
     }
     return { myCurrentPage, pager, changePager }
