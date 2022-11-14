@@ -7,6 +7,7 @@ const SubCategory = () => import('@/views/category/sub')
 const Goods = () => import('@/views/goods')
 
 const Login = () => import('@/views/login')
+const LoginCallback = () => import('@/views/login/callback')
 // 路由规则
 const routes = [
   // 一级路由布局容器
@@ -35,6 +36,10 @@ const routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/login/callback',
+    component: LoginCallback
   }
 ]
 

@@ -10,7 +10,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:;">退出登录</a>
+            <a href="javascript:;" @click="logout">退出登录</a>
           </li>
         </template>
         <template v-else>
@@ -45,6 +45,7 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 export default {
   name: 'AppTopnav',
   setup() {
@@ -54,7 +55,19 @@ export default {
     const profile = computed(() => {
       return store.state.user.profile
     })
-    return { profile }
+
+    // 退出登录
+    // 1.清除本地存储信息和vuex的用户信息
+    // 2.跳转到登录页
+    const router = useRouter()
+    const logout = () => {
+      let msg = '确定退出吗?'
+      if (confirm(msg)) {
+        store.commit('user/setUser', {})
+        router.push('/login')
+      }
+    }
+    return { profile, logout }
   }
 }
 </script>
