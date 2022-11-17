@@ -1,4 +1,4 @@
-import { getNewCartGoods, mergeCart } from '@/api/cart'
+import { checkAllCart, deleteCart, findCart, getNewCartGoods, insertCart, mergeCart, updateCart } from '@/api/cart'
 
 // 购物车模块
 export default {
@@ -55,6 +55,14 @@ export default {
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           // 已登录
+          insertCart({ skuId: payload.skuId, count: payload.count })
+            .then(() => {
+              return findCart()
+            })
+            .then(data => {
+              context.commit('setCart', data.result)
+              resolve()
+            })
         } else {
           // 未登录
           context.commit('insertCart', payload)
@@ -67,6 +75,10 @@ export default {
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           // 已登录
+          findCart().then(data => {
+            context.commit('setCart', data.result)
+            resolve()
+          })
         } else {
           // 未登录
           // 同时发送请求(有几件商品发几个请求)等所有请求成功，一并去修改本地数据
@@ -95,6 +107,14 @@ export default {
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           // 已登录
+          deleteCart([payload])
+            .then(() => {
+              return findCart()
+            })
+            .then(data => {
+              context.commit('setCart', data.result)
+              resolve()
+            })
         } else {
           // 未登录
           context.commit('deleteCart', payload)
@@ -108,6 +128,14 @@ export default {
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           // 已登录
+          updateCart(payload)
+            .then(() => {
+              return findCart()
+            })
+            .then(data => {
+              context.commit('setCart', data.result)
+              resolve()
+            })
         } else {
           // 未登录
           context.commit('updateCart', payload)
@@ -120,6 +148,15 @@ export default {
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           // 已登录
+          const ids = context.getters.validList.map(item => item.skuId)
+          checkAllCart({ selected, ids })
+            .then(() => {
+              return findCart()
+            })
+            .then(data => {
+              context.commit('setCart', data.result)
+              resolve()
+            })
         } else {
           // 未登录
           context.getters.validList.forEach(goods => {
@@ -134,6 +171,15 @@ export default {
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           // 已登录
+          const ids = context.getters[isClear ? 'inValidList' : 'selectedList'].map(item => item.skuId)
+          deleteCart(ids)
+            .then(() => {
+              return findCart()
+            })
+            .then(data => {
+              context.commit('setCart', data.result)
+              resolve()
+            })
         } else {
           // 未登录
           // 找出选中的商品列表，遍历去调用删除的mutations方法
@@ -150,6 +196,22 @@ export default {
       return new Promise((resolve, reject) => {
         if (context.rootState.user.profile.token) {
           // 已登录
+          // 1.找出旧的商品信息
+          // 2.删除旧的商品数据
+          // 3.原先商品的数量加上新的skuId
+          // 4.添加新的商品
+          const oldGoods = context.state.list.find(item => item.skuId === oldSkuId)
+          deleteCart([oldSkuId])
+            .then(() => {
+              return insertCart({ skuId: newSku.skuId, count: oldGoods.count })
+            })
+            .then(() => {
+              return findCart()
+            })
+            .then(data => {
+              context.commit('setCart', data.result)
+              resolve()
+            })
         } else {
           // 未登录
           // 1.找出旧的商品信息
