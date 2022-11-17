@@ -23,7 +23,7 @@
           <!-- 数量选择组件 -->
           <xtx-numbox v-model="num" :max="goods.inventory" label="数量"></xtx-numbox>
           <!-- 按钮组件 -->
-          <xtx-button type="primary" style="margin-top:20px">加入购物车</xtx-button>
+          <xtx-button @click="insertCart" type="primary" style="margin-top:20px">加入购物车</xtx-button>
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -58,6 +58,8 @@ import GoodsSku from './components/goods-sku.vue'
 import GoodsTabs from './components/goods-tabs.vue'
 import GoodsHot from './components/goods-hot.vue'
 import GoodsWarn from './components/goods-warn.vue'
+import { useStore } from 'vuex'
+import Message from '@/components/library/Message'
 export default {
   name: 'XtxGoodsPage',
   components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsName, GoodsSku, GoodsTabs, GoodsHot, GoodsWarn },
@@ -70,6 +72,8 @@ export default {
         goods.value.oldPrice = sku.oldPrice
         goods.value.inventory = sku.inventory
       }
+      // 记录选择后的sku，可能有数据，可能没有数据{}
+      currSku.value = sku
     }
 
     // 提供goods数据给后代组件使用
@@ -77,7 +81,35 @@ export default {
 
     // 选择的数量
     const num = ref(1)
-    return { goods, changSku, num }
+
+    // 加入购物车
+    // id，skuId，name，attrsText，picture，price，nowPrice，selected，stock，count，isEffective
+    const store = useStore()
+    const currSku = ref(null)
+    const insertCart = () => {
+      const { skuId, price, specsText: attrsText, inventory: stock } = currSku.value
+      const { id, name, mainPictures } = goods.value
+      if (currSku.value && currSku.value.skuId) {
+        store.dispatch('cart/insertCart', {
+          skuId,
+          price,
+          picture: mainPictures[0],
+          attrsText,
+          stock,
+          id,
+          name,
+          nowPrice: price,
+          selected: true,
+          count: num.value,
+          isEffective: true
+        }).then(() => {
+          Message({ type: 'success', text: '加入购物车成功!' })
+        })
+      } else {
+        Message({ text: '请选择完整规格!' })
+      }
+    }
+    return { goods, changSku, num, insertCart }
   }
 }
 // 获取商品详情

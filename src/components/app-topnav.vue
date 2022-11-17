@@ -46,6 +46,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import confirm from './library/Confirm'
 export default {
   name: 'AppTopnav',
   setup() {
@@ -61,11 +62,12 @@ export default {
     // 2.跳转到登录页
     const router = useRouter()
     const logout = () => {
-      let msg = '确定退出吗?'
-      if (confirm(msg)) {
+      confirm({ text: '您确认退出登录吗?' }).then(() => {
         store.commit('user/setUser', {})
+        // 清空购物车
+        store.commit('cart/setCart', [])
         router.push('/login')
-      }
+      }).catch(e => { })
     }
     return { profile, logout }
   }

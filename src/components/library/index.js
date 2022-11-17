@@ -15,7 +15,9 @@
 // context(目录路径，是否加载子目录，加载文件的匹配正则)
 // console.log(importFn.keys()) //组件路径形成的数组
 
-import Message from './Message'
+import Message from './Message.js'
+import Confirm from './Confirm.js'
+
 const importFn = require.context('./', false, /\.vue$/)
 
 export default {
@@ -41,6 +43,7 @@ export default {
 
     // 定义一个原型函数
     app.config.globalProperties.$message = Message
+    app.config.globalProperties.$confirm = Confirm
   }
 }
 
