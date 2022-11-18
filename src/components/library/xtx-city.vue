@@ -1,19 +1,14 @@
 <template>
   <div class="xtx-city" ref="target">
     <div class="select" @click="toggle" :class="{active:visible}">
-      <span class="placeholder" v-if="!fullLocation">请选择配送地址</span>
+      <span class="placeholder" v-if="!fullLocation">{{placeholder}}</span>
       <span class="value" v-else>{{fullLocation}}</span>
       <i class="iconfont icon-angle-down"></i>
     </div>
     <div class="option" v-if="visible">
       <div class="loading" v-if="loading"></div>
       <template v-else>
-        <span
-          class="ellipsis"
-          @click="changeItem(item)"
-          v-for="item in currList"
-          :key="item.code"
-        >{{item.name}}</span>
+        <span class="ellipsis" @click="changeItem(item)" v-for="item in currList" :key="item.code">{{item.name}}</span>
       </template>
     </div>
   </div>
@@ -28,6 +23,10 @@ export default {
     fullLocation: {
       type: String,
       default: ''
+    },
+    placeholder: {
+      type: String,
+      default: '请选择配送地址'
     }
   },
   setup(props, context) {

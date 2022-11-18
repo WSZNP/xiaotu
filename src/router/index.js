@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import store from '@/store'
 
 const Layout = () => import('@/views/Layout')
 const Home = () => import('@/views/home')
@@ -9,6 +10,8 @@ const Cart = () => import('@/views/cart')
 
 const Login = () => import('@/views/login')
 const LoginCallback = () => import('@/views/login/callback')
+
+const Checkout = () => import('@/views/member/pay/checkout.vue')
 // 路由规则
 const routes = [
   // 一级路由布局容器
@@ -35,6 +38,10 @@ const routes = [
       {
         path: 'cart',
         component: Cart
+      },
+      {
+        path: 'member/checkout',
+        component: Checkout
       }
     ]
   },
@@ -58,6 +65,17 @@ const router = createRouter({
   scrollBehavior() {
     return { top: 0, left: 0, behavior: 'smooth' }
   }
+})
+
+// 前置导航守卫
+router.beforeEach((to, from, next) => {
+  // 需要登陆的路由：地址是以 /member 开头
+  // 因为已经实例化了一个store,所以在路由配置js文件中直接import导入store/index.js文件就行
+  const { profile } = store.state.user
+  if (!profile.token && to.path.startsWith('/member')) {
+    return next('/login?redirectUrl=' + encodeURIComponent(to.fullPath))
+  }
+  next()
 })
 
 export default router
