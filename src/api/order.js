@@ -88,3 +88,27 @@ export const deleteOrder = ids => {
     }
   })
 }
+
+/**
+ * 确认收货
+ * @param {String} id - 订单id
+ * @returns
+ */
+export const confirmOrder = id => {
+  return request({
+    method: 'PUT',
+    url: `/member/order/${id}/receipt`
+  })
+}
+
+/**
+ *查询物流
+ * @param {Str} id - 订单id
+ * @returns
+ */
+export const logisticOrder = id => {
+  return request({
+    method: 'GET',
+    url: `/member/order/${id}/logistics`
+  })
+}

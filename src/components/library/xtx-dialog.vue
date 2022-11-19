@@ -68,7 +68,7 @@ export default {
   }
   .wrapper {
     width: 600px;
-    height: 95%;
+    // height: 95%;
     overflow: auto;
     background: #fff;
     border-radius: 4px;

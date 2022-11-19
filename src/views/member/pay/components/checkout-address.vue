@@ -136,7 +136,8 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.xtx-dialog {
+.xtx-dialog :deep(.wrapper) {
+  height: 95%;
   .text {
     flex: 1;
     min-height: 90px;
