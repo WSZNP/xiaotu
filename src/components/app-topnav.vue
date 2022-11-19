@@ -4,10 +4,10 @@
       <ul>
         <template v-if="profile.token">
           <li>
-            <a href="javascript:;">
+            <router-link to="/member">
               <i class="iconfont icon-user"></i>
               {{profile.account}}
-            </a>
+            </router-link>
           </li>
           <li>
             <a href="javascript:;" @click="logout">退出登录</a>
@@ -22,7 +22,7 @@
           </li>
         </template>
         <li>
-          <a href="javascript:;">我的订单</a>
+          <router-link to="/member/order">我的订单</router-link>
         </li>
         <li>
           <a href="javascript:;">会员中心</a>
