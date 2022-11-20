@@ -112,3 +112,15 @@ export const logisticOrder = id => {
     url: `/member/order/${id}/logistics`
   })
 }
+
+/**
+ * 获取再次购买的订单结算信息
+ * @param {String} id - 订单ID
+ * @returns
+ */
+export const findOrderRepurchase = id => {
+  return request({
+    method: 'GET',
+    url: `/member/order/repurchase/${id}`
+  })
+}

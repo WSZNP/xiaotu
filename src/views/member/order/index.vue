@@ -90,7 +90,7 @@ export default {
   }
 }
 // 取消订单逻辑
-const useCancel = () => {
+export const useCancel = () => {
   // 组件实例
   const orderCancelCom = ref(null)
   // 点击取消打开对话框
@@ -101,7 +101,7 @@ const useCancel = () => {
 }
 
 // 确认收货逻辑
-const useConfirm = () => {
+export const useConfirm = () => {
   const handlerConfirm = (order) => {
     Confirm({ text: '确认收货吗，收货后货款将直接进入卖家账户' }).then(() => {
       confirmOrder(order.id).then(() => {
@@ -114,7 +114,7 @@ const useConfirm = () => {
   return { handlerConfirm }
 }
 // 查看物流逻辑
-const useLogistics = () => {
+export const useLogistics = () => {
   const orderLogisticsCom = ref(null)
   const handlerLogistics = (order) => {
     orderLogisticsCom.value.open(order)
